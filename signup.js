@@ -16,8 +16,8 @@ var casper = require('casper').create({
 
 var conf = require('private.json');
 var login_url = 'https://passport.jd.com/uc/login.aspx';
-var signup_url = 'https://vip.jd.com';
-
+var vip_url = 'https://vip.jd.com';
+var jr_url = 'https://vip.jr.jd.com';
 
 casper.on('remote.message', function(msg) {
     this.echo('remote message caught: ' + msg);
@@ -32,7 +32,6 @@ casper.on('page.error', function(msg, backtrace) {
 // });
 
 casper.start(login_url, function() {
-    this.echo(login_url)
     this.fill('form#formlogin', {
         'loginname': conf.username,
         'nloginpwd': conf.password
@@ -45,19 +44,31 @@ casper.start(login_url, function() {
     }, conf.timeout);
 
     this.wait(3000, function() {
-        this.capture('b.png');
+        this.capture('g.png');
     });
 });
 
-casper.thenOpen(signup_url, function() {
+casper.thenOpen(vip_url, function() {
     this.waitForResource('getUnreadNum.action', function() {
-        this.click('.btns .signup-btn')
+        this.click('.btns .signup-btn');
     }, function() {
-        this.log('SIGNUP TIMEOUT!!!', 'error');
+        this.log('VIP TIMEOUT!!!', 'error');
     }, conf.timeout);
 
     this.wait(3000, function() {
-        this.capture('g.png');
+        this.capture('h.png');
+    });
+});
+
+casper.thenOpen(jr_url, function() {
+    this.waitForResource('get', function() {
+        this.click('.qian-top a.qian-btn');
+    }, function() {
+        this.log('JR TIMEOUT!!!', 'error');
+    }, conf.timeout);
+
+    this.wait(3000, function() {
+        this.capture('j.png');
     });
 });
 
