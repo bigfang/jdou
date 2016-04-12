@@ -17,7 +17,7 @@ var casper = require('casper').create({
 var conf = require('private.json');
 var login_url = 'https://passport.jd.com/uc/login.aspx';
 var vip_url = 'https://vip.jd.com';
-var jr_url = 'https://vip.jr.jd.com';
+var jr_url = 'http://vip.jr.jd.com';
 
 casper.on('remote.message', function(msg) {
     this.echo('remote message caught: ' + msg);
@@ -49,6 +49,7 @@ casper.start(login_url, function() {
 });
 
 casper.thenOpen(vip_url, function() {
+    this.echo(vip_url);
     this.waitForResource('getUnreadNum.action', function() {
         this.click('.btns .signup-btn');
     }, function() {
@@ -61,6 +62,7 @@ casper.thenOpen(vip_url, function() {
 });
 
 casper.thenOpen(jr_url, function() {
+    this.echo(jr_url);
     this.waitForResource('get', function() {
         this.click('.qian-top a.qian-btn');
     }, function() {
@@ -70,6 +72,11 @@ casper.thenOpen(jr_url, function() {
     this.wait(3000, function() {
         this.capture('j.png');
     });
+});
+
+casper.then(function() {
+    this.echo('exit!');
+    this.exit();
 });
 
 casper.run();
