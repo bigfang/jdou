@@ -51,7 +51,7 @@ casper.start(login_url, function() {
 
 casper.thenOpen(vip_url, function() {
     this.echo(vip_url);
-    this.waitForResource('getUnreadNum.action', function() {
+    this.waitForResource('get', function() {
         this.click('.btns .signup-btn');
     }, function() {
         this.log('VIP TIMEOUT!!!', 'error');
