@@ -52,7 +52,7 @@ casper.start(login_url, function() {
 casper.thenOpen(vip_url, function() {
     this.echo(vip_url);
     this.waitForResource('get', function() {
-        this.click('.btns .signup-btn');
+        this.click('.side-shortcut .item.checkin .icon-set');
     }, function() {
         this.log('VIP TIMEOUT!!!', 'error');
     }, conf.timeout);
