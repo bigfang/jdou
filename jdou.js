@@ -65,7 +65,7 @@ casper.thenOpen(vip_url, function() {
 casper.thenOpen(jr_url, function() {
     this.echo(jr_url);
     this.waitForResource('get', function() {
-        this.click('.qian-top a#qian-btn');
+        this.click('a#index-qian-btn');
     }, function() {
         this.log('JR TIMEOUT!!!', 'error');
     }, conf.timeout);
