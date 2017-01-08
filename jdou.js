@@ -39,6 +39,7 @@ casper.start(login_url, function() {
     }, true);
 
     this.waitForResource('showAuthCode', function() {
+        this.click('.login-tab.login-tab-r a')
         this.click('#loginsubmit');
     }, function() {
         this.log('LOGIN TIMEOUT!!!', 'error');
