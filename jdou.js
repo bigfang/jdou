@@ -35,11 +35,12 @@ casper.on('page.error', function(msg, backtrace) {
 casper.start(login_url, function() {
     this.fill('form#formlogin', {
         'loginname': conf.username,
-        'nloginpwd': conf.password
+        'nloginpwd': conf.password,
+        'chkRememberMe': true
     }, true);
 
     this.waitForResource('showAuthCode', function() {
-        this.click('.login-tab.login-tab-r a')
+        this.click('.login-tab.login-tab-r a');
         this.click('#loginsubmit');
     }, function() {
         this.log('LOGIN TIMEOUT!!!', 'error');
@@ -53,7 +54,7 @@ casper.start(login_url, function() {
 casper.thenOpen(vip_url, function() {
     this.echo(vip_url);
     this.waitForResource('get', function() {
-        this.click('.side-shortcut .item.checkin .icon-set');
+        this.click('.side-shortcut #checkinBtn .icon-set');
     }, function() {
         this.log('VIP TIMEOUT!!!', 'error');
     }, conf.timeout);
