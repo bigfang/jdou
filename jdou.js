@@ -54,7 +54,7 @@ casper.start(login_url, function() {
 casper.thenOpen(vip_url, function() {
     this.echo(vip_url);
     this.waitForResource('get', function() {
-        this.click('.side-shortcut #checkinBtn .icon-set');
+        this.click('.side-shortcut #checkinBtn');
     }, function() {
         this.log('VIP TIMEOUT!!!', 'error');
     }, conf.timeout);
